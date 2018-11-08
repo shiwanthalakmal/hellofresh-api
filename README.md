@@ -1,11 +1,5 @@
 # Hellofresh-Api-Test (Without Framework)
 
-### Prerequisite Setup Instructions:
-
-1 Clone testNg reporting project and build local machine:
-> - https://github.com/shiwanthalakmal/testng-reporter-Maven-Plugin.git
-> - Build this reporting project using ```mvn clean install``` command
-
 ### Setup HelloFresh-Api Project
 
 1 clone hellofresh-api project and follow below steps
@@ -22,7 +16,7 @@
 > - git clone [hellofresh-api](https://github.com/shiwanthalakmal/hellofresh-api.git)
 > - Run ```mvn clean install -Pdemo``` to execute configure demo test suite with maven profile
 > - Generate real time log under ```c:->log``` dir as well as ```console``` out put.
-> - End of the execution comprehensive report will generate under project target dir ```taeget```
+> - End of the execution comprehensive report will generate under project target dir ```taeget -> surefire-reports -> html ->index.html```
 
 ```**Note: Possible to manage test suites using maven profile easily**```
 
@@ -32,3 +26,10 @@
 - [x] Get each country (US, DE and GB) individually and validate the response
 - [x] Try to get information for inexistent countries and validate the response
 - [x] This API has not a POST method at the moment, but it is being developed. Write a test that would validate new country addition using POST(it will not work now, but no worries).
+
+### Third Party additional libraries usage
+
+- ```Unit test runner - org.testng 6.8```
+- ```Logging support - org.slf4j , log4j```
+- ```Reportng reporting support - reportng 1.1.4```
+- ```Json extraction - com.google.code.gson , com.googlecode.json-simple```

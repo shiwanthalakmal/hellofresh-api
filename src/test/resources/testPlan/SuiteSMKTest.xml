@@ -7,14 +7,6 @@
         <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
     </listeners>
     <test name="API">
-        <groups>
-            <define name="smk">
-                <include name="BAT"/>
-            </define>
-            <run>
-                <include name="smk"/>
-            </run>
-        </groups>
         <classes>
             <class name="com.hellofresh.test.HelloFreshAPITest"/>
         </classes>
