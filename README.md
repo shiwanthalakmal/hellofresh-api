@@ -19,6 +19,7 @@
 ### Execute HelloFresh-Api Project (Command line)
 
 1 clone and hellofresh-api project and follow below steps (*above prerequisite needed)
+> - git clone [hellofresh-api](https://github.com/shiwanthalakmal/hellofresh-api.git)
 > - Run ```mvn clean install -Pdemo``` to execute configure demo test suite with maven profile
 > - Generate real time log under ```c:->log``` dir as well as ```console``` out put.
 > - End of the execution comprehensive report will generate under project target dir ```taeget```
