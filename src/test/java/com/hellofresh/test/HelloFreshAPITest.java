@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import com.hellofresh.config.API;
-import com.hellofresh.config.DataSupporter;
+import com.hellofresh.config.BaseTest;
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 import com.jayway.restassured.specification.RequestSpecification;
@@ -17,7 +17,7 @@ import org.json.simple.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class HelloFreshAPITest
+public class HelloFreshAPITest extends BaseTest
 {
   final static Logger log = Logger.getLogger(HelloFreshAPITest.class);
 
@@ -34,9 +34,9 @@ public class HelloFreshAPITest
 
     final List<String> countryNameList = from(API.response.asString()).get("RestResponse.result.findAll { it.alpha2_code == 'US' }.alpha2_code");
 
-    Assert.assertNotNull(countryNameList, "Error ! Country name list should not be null");
-    Assert.assertEquals(countryNameList.size(),1, "Error ! Single alpha code allowed for single country");
-    Assert.assertTrue(countryNameList.get(0).equals("US"), "Error ! Country not available for code : US");
+    verifyNotNull(countryNameList,"Error ! Country name list should not be null");
+    verifyEqual(countryNameList.size(),1, "Error ! Single alpha code allowed for single country");
+    verifyTrue(countryNameList.get(0).equals("US"), "Error ! Country not available for code : US");
   }
 
   /**
@@ -52,13 +52,13 @@ public class HelloFreshAPITest
 
     final List<String> successMessageList = from(API.response.asString()).get("RestResponse.messages");
 
-    Assert.assertNotNull(successMessageList);
-    Assert.assertEquals(successMessageList.size(),1);
-    Assert.assertTrue(successMessageList.get(0).contains("Country found matching code [US]"), "Error ! Success message not available");
+    verifyNotNull(successMessageList,"Error ! Object should not null");
+    verifyEqual(successMessageList.size(),1,"Error ! Country name list should not be null\"");
+    verifyTrue(successMessageList.get(0).contains("Country found matching code [US]"), "Error ! Success message not available");
 
-    Assert.assertTrue(from(API.response.asString()).get("RestResponse.result.name").toString().contains("United States of America"), "Error ! Country name is not available");
-    Assert.assertTrue(from(API.response.asString()).get("RestResponse.result.alpha2_code").toString().contains("US"), "Error ! Alpha 2 is not available");
-    Assert.assertTrue(from(API.response.asString()).get("RestResponse.result.alpha3_code").toString().contains("USA"), "Error ! Alpha 3 is not available");
+    verifyTrue(from(API.response.asString()).get("RestResponse.result.name").toString().contains("United States of America"),"Error ! Country name is not available");
+    verifyTrue(from(API.response.asString()).get("RestResponse.result.alpha2_code").toString().contains("US"),"Error ! Alpha 2 is not available");
+    verifyTrue(from(API.response.asString()).get("RestResponse.result.alpha3_code").toString().contains("USA"),"Error ! Alpha 3 is not available");
   }
 
   /**
@@ -74,9 +74,9 @@ public class HelloFreshAPITest
 
     final List<String> successMessageList = from(API.response.asString()).get("RestResponse.messages");
 
-    Assert.assertNotNull(successMessageList, "Error ! Country name list should not be null");
-    Assert.assertEquals(successMessageList.size(),1, "Error ! Single alpha code allowed for single country");
-    Assert.assertTrue(successMessageList.get(0).contains("No matching country found for requested code"), "Error ! Country not available for code : KD");
+    verifyNotNull(successMessageList, "Error ! Country name list should not be null");
+    verifyEqual(successMessageList.size(),1, "Error ! Single alpha code allowed for single country");
+    verifyTrue(successMessageList.get(0).contains("No matching country found for requested code"), "Error ! Country not available for code : KD");
   }
 
   /**
@@ -101,7 +101,7 @@ public class HelloFreshAPITest
     request.body(requestParams.toJSONString());
     Response response = request.post(end_point);
 
-    Assert.assertEquals(response.getStatusCode(), "201");
-    Assert.assertEquals( "Correct Success code was returned", response.jsonPath().get("SuccessCode"), "Erro ! POST Operation Not Success..");
+    verifyEqual(response.getStatusCode(), "201","Error ! Error code seems mismatching ..");
+    verifyEqual("Correct Success code was returned", response.jsonPath().get("SuccessCode"), "Erro ! POST Operation Not Success..");
   }
 }
